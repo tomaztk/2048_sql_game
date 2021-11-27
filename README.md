@@ -1,8 +1,13 @@
 # T-SQL Code for popular 2048 Game
 This GitHub repository contains code samples that demonstrate how to create and use the procedures for 2048 Game using SQL Server Transact SQL (T-SQL) in your favorite editor
 
+![](/img/game2048.png)
+
 
 # Playing the game
+
+
+
 
 
 ## Forking or cloning the repository
