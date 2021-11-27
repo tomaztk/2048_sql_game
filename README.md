@@ -4,7 +4,10 @@ This GitHub repository contains code samples that demonstrate how to create and 
 # What is 2048 game?
 This is the classical puzzle game, that is easy and fun to play. The objective of the game is to move the numbers (tiles in the matrix/board) in a way to combine them to create a tile with the number 2048.
 
-![](/img/game2048.png)
+
+<!--![](/img/game2048.png?style=centerme) -->
+<div style="text-align:center"><img src="/img/game2048.png" alt="2048" style="width:300px;"/></div>
+
 
 
 # SQL Procedures
