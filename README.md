@@ -32,7 +32,7 @@ EXEC dbo.CREATE_matrix 4
 EXEC dbo.INIT_matrix 4 
 ```
 
-## Pocedures to make moves
+## Procedures to make moves
 
 The SQL file: _02_Move_procedures.sql_ describes four procedures that imitate a LEFT, RIGHT, UP and DOWN user move and calculates and moves the numbers in board accordingly.
 

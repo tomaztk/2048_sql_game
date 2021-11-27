@@ -189,3 +189,105 @@ BEGIN
 	   END
 END;
 GO
+
+
+
+---- --------------------------
+---- --------------------------
+---- MOVE LEFT Procedure
+---- --------------------------
+---- --------------------------
+
+
+CREATE OR ALTER PROCEDURE dbo.MOVE_left
+		@dim INT
+AS
+BEGIN
+
+
+	DECLARE @row_counter INT = 1 -- Row counter
+	Declare @max_row INT = (SELECT @dim )
+
+
+	while @max_row > @row_counter
+	BEGIN
+			DECLARE @header NVARCHAR(4000) = 'drop table if exists dbo.tmp
+			select
+			row_number() over (order by (select 1)) as id
+			, v1
+			into dbo.tmp
+			from (
+			select '
+
+			DECLARE @col_names NVARCHAR(4000)  
+			SELECT @col_names = COALESCE(@col_names + ' as v1 from T_2048 WHERE ID = '+CAST(@row_counter AS CHAR(10))+ '
+			union all
+			select ' , '') + COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'T_2048' AND COLUMN_NAME NOT IN ('ID')
+
+ 
+			DECLARE @foot NVARCHAR(500) = ' from T_2048 WHERE ID = '+CAST(@row_counter AS CHAR(10))+'
+			) as x
+			'
+
+			SET @header = @header + @col_names + @foot
+			print @header 
+
+			EXEC sp_executesql @header
+
+				DEcLAre @ii int = 1
+				while @dim - 1  >= @ii
+					BEGIN
+								declare @i int = @dim -- dimenzija
+								while 1 < @i
+								begin	
+									declare @vv_1 int = (select v1 from dbo.tmp where id = @i)
+									declare @vv_2 int = (select v1 from dbo.tmp where id = @i-1)
+
+								IF (@vv_1 = 0 AND @vv_2 <> 0)
+								BEGIN
+									update dbo.tmp set v1 = @vv_2 where id = @i
+									update dbo.tmp set v1 = 0     where id = @i-1
+								END
+
+								IF (@vv_1 <> 0 AND @vv_1 = @vv_2)
+								BEGIN
+									update dbo.tmp set v1 = @vv_1 + @vv_2 where id = @i
+									update dbo.tmp set v1 = 0 where id = @i-1
+								END
+
+								set @i = @i - 1
+					END
+	 
+				  set @ii = @ii + 1
+				END
+
+
+				-- final update to table T_2048
+
+				declare @y int = 1
+
+				--while @y <= @dim -- variable dim
+				--begin
+
+				--	declare @val int = (select v1 from dbo.tmp where id = @y)
+
+				--	declare @s nvarchar(500)
+				--	set @s = 'UPDATE dbo.T_2048
+				--			set v' + CAST(@y AS VARCHAR(10)) + '= ' + CAST(@val AS VARCHAR(10))
+
+				--	EXEC sp_executesql @s
+
+				--	set @y = @y + 1
+				--end
+
+      END
+
+	  SET @row_counter = @row_counter + 1
+	  drop table if exists dbo.tmp
+
+ END;
+ GO
+
+
+EXEC dbo.MOVE_left 4
+SELECT * FROM T_2048
