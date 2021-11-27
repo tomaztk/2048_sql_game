@@ -4,6 +4,27 @@ This GitHub repository contains code samples that demonstrate how to create and 
 ![](/img/game2048.png)
 
 
+# SQL Procedures
+
+Game consists of several procedures that make the game work.
+In order for the game to start, you will need to run all the procedures and use the main 'Play_game' procedure.
+
+Two groups of procedure are available to start and play the game:
+  1. Procedures to create and initialize matrix (helper procedures)
+  2. Procedures to make moves (helper procedures)
+  3. Procedure to play the game (main procedure)
+
+
+
+## Create and initialize matrix
+
+rere
+
+## Pocedures to make moves
+
+rere
+
+
 # Playing the game
 
 
