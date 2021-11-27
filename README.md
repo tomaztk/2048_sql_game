@@ -1,5 +1,8 @@
 # T-SQL Code for popular 2048 Game
-This GitHub repository contains code samples that demonstrate how to create and use the procedures for 2048 Game using SQL Server Transact SQL (T-SQL) in your favorite editor
+This GitHub repository contains code samples that demonstrate how to create and use the procedures for 2048 Game using SQL Server Transact SQL (T-SQL) in your favorite editor.
+
+# What is 2048 game?
+This is the classical puzzle game, that is easy and fun to play. The objective of the game is to move the numbers (tiles in the matrix/board) in a way to combine them to create a tile with the number 2048.
 
 ![](/img/game2048.png)
 
@@ -18,11 +21,27 @@ Two groups of procedure are available to start and play the game:
 
 ## Create and initialize matrix
 
-rere
+The SQL file: _01_Create_initialize.sql_  describes two procedures that create an empty matrix (board) for a given dimension and initialize the matrix by adding two start numbers at a random position [x,y].
+
+Run the code:
+```(sql)
+-- Create board of size 4
+EXEC dbo.CREATE_matrix 4
+
+-- Initialize board of size 4
+EXEC dbo.INIT_matrix 4 
+```
 
 ## Pocedures to make moves
 
-rere
+The SQL file: _02_Move_procedures.sql_ describes four procedures that imitate a LEFT, RIGHT, UP and DOWN user move and calculates and moves the numbers in board accordingly.
+
+Run the code:
+
+```(sql)
+-- Make a move DOWN on a board of size 4x4
+EXEC dbo.MAKE_move 'D', 4
+```
 
 
 # Playing the game
