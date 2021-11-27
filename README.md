@@ -39,14 +39,38 @@ The SQL file: _02_Move_procedures.sql_ describes four procedures that imitate a 
 Run the code:
 
 ```(sql)
--- Make a move DOWN on a board of size 4x4
-EXEC dbo.MAKE_move 'D', 4
+-- Make a move UP on a board of size 4x4
+EXEC dbo.MAKE_up  4
+
+-- Make a move LEFT on a board of size 4x4
+EXEC dbo.MAKE_left  4
+
 ```
 
 
 # Playing the game
 
+The last file _03_Play_game.sql_ holds the procedure that will give you the ability to play the game. You can simply execute the procedure to do the moves, accordingly.
 
+```
+-- make a LEFT move
+EXEC dbo.PLAY_game 'L', 4
+
+-- make a UP move
+EXEC dbo.PLAY_game 'U', 4
+```
+
+Generic code:
+
+```EXEC dbo.PLAY_game {direction}, {size}```
+
+For the {direction} use the following abbreviations:
+1. 'D' to move DOWN
+2. 'U' to move UP
+3. 'L' to move LEFT
+4. 'R' to move RIGHT
+
+And for the size it can be any give integer that is between 3 or above.
 
 
 
