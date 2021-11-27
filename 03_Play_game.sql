@@ -7,30 +7,30 @@ BEGIN
 
 	IF @move = 'U'
 		BEGIN
-			EXEC dbo.MOVE_up @dim
-            -- Add new number
+			EXEC dbo.MOVE_up @dim;
+            EXEC [dbo].[ADD_number] @dim;
 			SELECT * FROM T_2048
 		END
 
 	IF @move = 'D'
 		BEGIN
-			EXEC dbo.MOVE_down @dim
-            -- -- Add new number
+			EXEC dbo.MOVE_down @dim;
+            EXEC [dbo].[ADD_number] @dim;
 			SELECT * FROM T_2048
 		END
 
 
 	IF @move = 'L'
 		BEGIN
-			EXEC dbo.MOVE_left @dim
-            -- -- Add new number
+			EXEC dbo.MOVE_left @dim;
+            EXEC [dbo].[ADD_number] @dim;
 			SELECT * FROM T_2048
 		END
 
 	IF @move = 'R'
 		BEGIN
-			EXEC dbo.MOVE_right @dim
-            -- -- Add new number
+			EXEC dbo.MOVE_right @dim;
+            EXEC [dbo].[ADD_number] @dim;
 			SELECT * FROM T_2048
 		END
 

@@ -76,6 +76,30 @@ For the {direction} use the following abbreviations:
 And for the size it can be any give integer that is between 3 or above.
 
 
+# Start The game
+
+If you want to play 4x4 board, you will need to create a bord and add two numbers that will be placed at the random position. This can be done with:
+
+```
+EXEC  [dbo].[CREATE_matrix] 4;
+GO
+EXEC [dbo].[ADD_number] 4;
+GO 2
+```
+
+Creating an empty table in first procedure and adding two numbers in second procedure.
+
+<div style="text-align:center"><img src="/img/table1.png" alt="table" style="width:300px;"/></div>
+
+And now you can start playing by calling the move procedures. In this case, player is taking first move to go UP. 
+
+```
+EXEC [dbo].[PLAY_game] 'U', 4
+```
+<div style="text-align:center"><img src="/img/table2.png" alt="table" style="width:300px;"/></div>
+
+The UP move summed the two 2 numbers into 4 and added a new number 2 on blank tile (blank tile = 0).
+
 
 ## Forking or cloning the repository
 To work in GitHub, go to https://github.com/tomaztk/2048_sql_game and fork the repository. Work in your own fork and when you are ready to submit to make a change or publish your sample for the first time, submit a pull request into the master branch of this repository. 

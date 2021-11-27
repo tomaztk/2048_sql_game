@@ -37,39 +37,61 @@ GO
 
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--- CREATE MATRIX (board) for @dim dimension
+-- ADD NUMBER (board) for @dim dimension
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-CREATE OR ALTER PROCEDURE dbo.INIT_matrix
+CREATE OR ALTER PROCEDURE dbo.ADD_number
 	@dim INT
 AS
 BEGIN
 	
-declare @a int = 1
-declare @b int = 4
+DECLARE @nofTry INT = 10*@dim
+DECLARE @i INT = 1
 
-declare @x int, @y int = 1
+WHILE @nofTry > @i
+	BEGIN
 
-SET @x = (SELECT FLOOR(RAND()*(@b-@a+1))+@a)
-SET @y = (SELECT FLOOR(RAND()*(@b-@a+1))+@a)
+			declare @a int = 1
+			declare @b int = @dim
 
-	DECLARE @COL NVARCHAR(100) = (
-			SELECT 
-				COLUMN_NAME 
-			FROM INFORMATION_SCHEMA.COLUMNS
-			WHERE
-					TABLE_NAME = 'T_2048'
-				AND TABLE_SCHEMA = 'dbo'
-				AND ORDINAL_POSITION = @x+1 )
+			declare @x int, @y int = 1
+
+			SET @x = (SELECT FLOOR(RAND()*(@b-@a+1))+@a)
+			SET @y = (SELECT FLOOR(RAND()*(@b-@a+1))+@a)
+
+				DECLARE @COL NVARCHAR(100) = (
+						SELECT 
+							COLUMN_NAME 
+						FROM INFORMATION_SCHEMA.COLUMNS
+						WHERE
+								TABLE_NAME = 'T_2048'
+							AND TABLE_SCHEMA = 'dbo'
+							AND ORDINAL_POSITION = @x+1 )
 
 
+			--- CHECK if 0
+			DECLARE @check0 NVARCHAR(1000) = 'SELECT ' +@COL+ ' FROM dbo.T_2048 WHERE ID =' + CAST(@y AS varchar(10))
+			PRINT @check0
 
-DECLARE @Sq NVARCHAR(2000) =  
-	'UPDATE dbo.T_2048
-		SET ' + CAST(@COL AS VARCHAR(100)) + ' = CASE WHEN ' + CAST(@COL AS VARCHAR(100)) + '  = 0 THEN 2  ELSE ' + CAST(@COL AS VARCHAR(100)) + '  END
-		WHERE	
-			ID = '+CAST(@y AS VARCHAR(100))
+			DECLARE @temp TABLE (RES INt)
 
-	EXEC sp_executesql @Sq
+			INSERT INTO @temp
+			EXEC sp_executesql @check0
+
+
+			IF (SELECT res FROM @temp) = 0
+				BEGIN
+						SET @i = @nofTry
+						DECLARE @Sq NVARCHAR(2000) =  
+							'UPDATE dbo.T_2048
+								SET ' + CAST(@COL AS VARCHAR(100)) + ' = CASE WHEN ' + CAST(@COL AS VARCHAR(100)) + '  = 0 THEN 2  ELSE ' + CAST(@COL AS VARCHAR(100)) + '  END
+								WHERE	
+									ID = '+CAST(@y AS VARCHAR(100))
+
+							EXEC sp_executesql @Sq
+							--RETURN;
+				END
+		SET @i = @i + 1
+	END
 
 END;
 GO
