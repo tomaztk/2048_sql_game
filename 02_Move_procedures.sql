@@ -288,10 +288,10 @@ BEGIN
 				
       
 	 	SET @row_counter = @row_counter + 1
-		SET @header = ''
-		SET @col_names = ''
-		SET @foot = ''
-		SET @sql = ''
+		SET @header = NULL
+		SET @col_names = NULL
+		SET @foot = NULL
+		SET @sql = NULL
 	END
 
  END;
@@ -394,10 +394,10 @@ BEGIN
 				
       
 	 	SET @row_counter = @row_counter + 1
-		SET @header = ''
-		SET @col_names = ''
-		SET @foot = ''
-		SET @sql = ''
+		SET @header = NULL
+		SET @col_names = NULL
+		SET @foot = NULL
+		SET @sql = NULL
 	END
 
  END;
