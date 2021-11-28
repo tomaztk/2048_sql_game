@@ -112,7 +112,7 @@ git clone -n https://github.com/tomaztk/2048_sql_game
 ```
 
 ## Code of Conduct
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). Collaboration on this code is welcome and so are any additional questions or comments.
+Collaboration on this code is welcome and so are any additional questions or comments.
 
 
 ## License
