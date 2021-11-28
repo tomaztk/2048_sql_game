@@ -1,5 +1,17 @@
+/****************************************************************
+Procedure:          dbo.MOVE_up, MOVE_down, MOVE_left, MOVE_right
+Create Date:        2021-11-28
+Author:             Tomaz Kastrun
+Description:        Reorganize the numbers in table (update)   
+					based on the selected direction.
 
-
+Procedure output:	updates table: [dbo].[T_2048]
+Parameter(s):       @dim - size of the matrix; e.g.: 4 = 4x4 
+					@move - directon of move and calculation.
+Usage:              EXEC dbo.MOVE_up
+                        @dim = 4
+ChangeLog:
+*************************************************************** */
 ---- --------------------------
 ---- --------------------------
 ---- MOVE UP Procedure
@@ -14,7 +26,7 @@ BEGIN
 
 
 	DECLARE @Column_counter INT = 2
-	Declare @max_column INT = (SELECT @dim /* dim */ + 2)
+	Declare @max_column INT = (SELECT @dim  + 2)
 
 
 	while @max_column > @Column_counter
@@ -32,18 +44,13 @@ BEGIN
 		insert into #temp
 		EXEC sp_executesql @sql1
 
-		--SELECT * FROM #temp
-		/* premik */
-
 		---------------------------------------
-					-- UP scenarij
 						DECLARE @ii int = 1
 						while @dim-1 >= @ii -- število dimenzij
 						BEGIN
 							declare @i int = 1
 
-							while @dim > @i -- 
-							--declare @i int = 1 
+							while @dim > @i 
 							begin	
 								declare @vv_1 int = (select v from #temp where id = @i)
 								declare @vv_2 int = (select v from #temp where id = @i+1)
@@ -86,10 +93,7 @@ BEGIN
 
 		----------------------------------------
 
-		SET @Column_counter = @Column_counter + 1
-
-		-- END; Show T_2048
-	
+		SET @Column_counter = @Column_counter + 1	
 
 	   END
 END;
@@ -109,7 +113,7 @@ AS
 BEGIN
 
 	DECLARE @Column_counter INT = 2
-	Declare @max_column INT = (SELECT @dim /* dim */ + 2)
+	Declare @max_column INT = (SELECT @dim + 2)
 
 
 	while @max_column > @Column_counter
@@ -127,14 +131,11 @@ BEGIN
 		insert into #temp
 		EXEC sp_executesql @sql1
 
-		--SELECT * FROM #temp
-		/* premik */
-
 		---------------------------------------
-					-- DOWN scenarij
+					-- DOWN 
 
 						DECLARE @ii int = 1
-						while @dim-1 >= @ii -- število dimenzij
+						while @dim-1 >= @ii
 						BEGIN
 							declare @i int = @dim
 
@@ -181,11 +182,7 @@ BEGIN
 
 		----------------------------------------
 
-		SET @Column_counter = @Column_counter + 1
-
-		-- END; Show T_2048
-	
-
+		SET @Column_counter = @Column_counter + 1	
 	   END
 END;
 GO
@@ -205,9 +202,7 @@ AS
 BEGIN
 
 
-	DECLARE @row_counter INT = 1 -- Row counter
-	--Declare @max_row INT = (SELECT @dim )
-
+	DECLARE @row_counter INT = 1 
 
 	while @dim >= @row_counter
 	BEGIN
@@ -241,7 +236,7 @@ BEGIN
 				DECLARE @ii int = 1
 				WHILE @dim - 1  >= @ii
 					BEGIN
-								declare @i int = @dim -- dimenzija
+								declare @i int = @dim 
 								while 1 < @i
 									begin	
 										declare @vv_1 int = (select v1 from dbo.tmp where id = @i)
@@ -270,7 +265,7 @@ BEGIN
 				-- final update to table T_2048
 				DECLARE @y int = 1
 
-				WHILE @y <= @dim -- variable dim
+				WHILE @y <= @dim 
 					BEGIN
 
 					declare @val int = (select v1 from dbo.tmp where id = @y)
@@ -311,9 +306,7 @@ AS
 BEGIN
 
 
-	DECLARE @row_counter INT = 1 -- Row counter
-	--Declare @max_row INT = (SELECT @dim )
-
+	DECLARE @row_counter INT = 1 
 
 	while @dim >= @row_counter
 	BEGIN
@@ -372,11 +365,10 @@ BEGIN
 				  set @ii = @ii + 1
 				END
 
-
 				-- final update to table T_2048
 				DECLARE @y int = 1
 
-				WHILE @y <= @dim -- variable dim
+				WHILE @y <= @dim 
 					BEGIN
 
 					declare @val int = (select v1 from dbo.tmp where id = @y)

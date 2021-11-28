@@ -1,7 +1,26 @@
 
 CREATE OR ALTER PROCEDURE dbo.PLAY_game
-	 @move CHAR(1) -- U, D, L, R (Up, Down, Left, Right)
-	,@dim  INT  -- size of the matrix
+
+/**************************************************************
+Procedure:          dbo.PLAY_game
+Create Date:        2021-11-28
+Author:             Tomaz Kastrun
+Description:        Reorganize the numbers in table (update)   
+					based on the selected direction and add 
+					new number 2 in empty tile (where value=0).
+
+Procedure output:	updates table: [dbo].[T_2048]
+Parameter(s):       @dim - size of the matrix; e.g.: 4 = 4x4 
+					@move - directon of move and calculation.
+						  - Possible values: U, D, L, R (Up, Down, Left, Right)
+Usage:              EXEC dbo.PLAY_game
+						 @move = 'U'
+                        ,@dim = 4
+ChangeLog:
+************************************************************* */
+
+	 @move CHAR(1) 
+	,@dim  INT  
 AS
 BEGIN
 

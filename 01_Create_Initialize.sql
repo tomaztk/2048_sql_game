@@ -1,9 +1,23 @@
 
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--- CREATE MATRIX (board) for @dim dimension
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 CREATE OR ALTER PROCEDURE dbo.CREATE_matrix
 	
+/**************************************************************
+Procedure:          dbo.CREATE_Matrix
+Create Date:        2021-11-28
+Author:             Tomaz Kastrun
+Description:        Creates a table that has same number of 
+					columns and rows with helped ID column.
+					Imitates the matrix function in Py/R.
+					Table name is dbo.T_2048 and is used as
+					board for the game, each cell is a tile.
+
+Procedure output:	[dbo].[T_2048]
+Parameter(s):       @dim - size of the matrix; e.g.: 4 = 4x4 
+Usage:              EXEC dbo.CREATE_Matrix
+                        @dim = 4
+ChangeLog:
+************************************************************* */
+
 	@dim INT
 
 AS
@@ -36,10 +50,22 @@ END;
 GO
 
 
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--- ADD NUMBER (board) for @dim dimension
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 CREATE OR ALTER PROCEDURE dbo.ADD_number
+
+/**************************************************************
+Procedure:          dbo.ADD_number
+Create Date:        2021-11-28
+Author:             Tomaz Kastrun
+Description:        Adds number 2 (update) in a cell that  
+					holds the value|number 0.
+
+Procedure output:	updates table: [dbo].[T_2048]
+Parameter(s):       @dim - size of the matrix; e.g.: 4 = 4x4 
+Usage:              EXEC dbo.ADD_number
+                        @dim = 4
+ChangeLog:
+************************************************************* */
+
 	@dim INT
 AS
 BEGIN
