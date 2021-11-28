@@ -118,5 +118,6 @@ Collaboration on this code is welcome and so are any additional questions or com
 ## License
 Code is licensed under the MIT license.
 
-## Questions
-Email questions to: tomaz.kastrun@gmail.com
+### ToDO
+1. Add warning when there are no more empty tiles
+2. Add BREAK when first tile (cell) gets to number 2048
