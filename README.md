@@ -120,5 +120,6 @@ Collaboration on this code is welcome and so are any additional questions or com
 Code is licensed under the MIT license.
 
 ### ToDO
-1. Add warning when there are no more empty tiles
-2. Add BREAK when first tile (cell) gets to number 2048
+1. Prettify T-SQL code
+2. Optimize function for vectorization of table (or even come up with new function / data type)
+   
