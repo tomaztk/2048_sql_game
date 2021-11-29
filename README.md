@@ -122,4 +122,5 @@ Code is licensed under the MIT license.
 ### ToDO
 1. Prettify T-SQL code
 2. Optimize function for vectorization of table (or even come up with new function / data type)
+3. Implementing procedures in Power BI or SSRS :-)
    
