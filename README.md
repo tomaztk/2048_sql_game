@@ -32,7 +32,8 @@ Run the code:
 EXEC dbo.CREATE_matrix 4
 
 -- Initialize board of size 4
-EXEC dbo.INIT_matrix 4 
+EXEC dbo.FIND_ADD_matrix 4;
+GO 2 
 ```
 
 ## Procedures to make moves
@@ -83,7 +84,7 @@ If you want to play 4x4 board, you will need to create a bord and add two number
 ```
 EXEC  [dbo].[CREATE_matrix] 4;
 GO
-EXEC [dbo].[ADD_number] 4;
+EXEC [dbo].[FIND_ADD_number] 4;
 GO 2
 ```
 
