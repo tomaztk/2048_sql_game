@@ -1,4 +1,7 @@
 
+SET NOCOUNT ON;
+GO
+
 CREATE OR ALTER PROCEDURE dbo.PLAY_game
 
 /**************************************************************
