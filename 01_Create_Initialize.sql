@@ -110,7 +110,7 @@ BEGIN
 					print @new_col
 					print @new_row
 
-					   WHILE ( SELECT COUNT(*)  ID FROM @zeros WHERE val = 0) > 0
+					IF ( SELECT COUNT(*)  ID FROM @zeros WHERE val = 0) > 0
 									BEGIN
 						
 											DECLARE @Sq NVARCHAR(2000) =  
@@ -121,9 +121,12 @@ BEGIN
 
 												EXEC sp_executesql @Sq
 					
-												bREAK;
-												
-									END;
+									END
+									ELSE
+									BEGIN
+										SELECT 'Game over'
+										DROP TABLE IF EXISTS dbo.T_2048;
+									END	
 
 
 END;
