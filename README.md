@@ -31,7 +31,7 @@ Run the code:
 -- Create board of size 4
 EXEC dbo.CREATE_matrix 4
 
--- Initialize board of size 4
+-- Initialize board of size 4 with two random numbers
 EXEC dbo.FIND_ADD_matrix 4;
 GO 2 
 ```

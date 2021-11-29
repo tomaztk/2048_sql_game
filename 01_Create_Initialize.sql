@@ -50,74 +50,83 @@ END;
 GO
 
 
-CREATE OR ALTER PROCEDURE dbo.ADD_number
-
+CREATE OR ALTER PROCEDURE dbo.FIND_ADD_number
 /**************************************************************
-Procedure:          dbo.ADD_number
-Create Date:        2021-11-28
+Procedure:          dbo.FIND_ADD_number
+Create Date:        2021-11-29
 Author:             Tomaz Kastrun
 Description:        Adds number 2 (update) in a cell that  
 					holds the value|number 0.
 
 Procedure output:	updates table: [dbo].[T_2048]
 Parameter(s):       @dim - size of the matrix; e.g.: 4 = 4x4 
-Usage:              EXEC dbo.ADD_number
+Usage:              EXEC dbo.ADD_FIND_ADD_numbernumber
                         @dim = 4
 ChangeLog:
 ************************************************************* */
 
 	@dim INT
+
 AS
 BEGIN
+
+		DECLARE @row INT = 1
+		DECLARE @col int = 1
+
+		declare @zeros table (id int identity(1,1), row_n int, col_n int, val int)
+
+		while @row <= @dim
+		BEGIN
+			while @col <= @dim
+			BEGIN
+				DECLARE @s NVARCHAR(1000) 
+				SET @s = 'SELECT CAST(v' + CAST(@col AS varchar(10)) + ' AS INT) as v FROM T_2048 WHERE id = ' + CAST(@row AS varchar(10))
+		
+				CREATE TABLE #res (val int)
+				insert into #res 
+				exec sp_executesql @s
 	
-DECLARE @nofTry INT = 10*@dim
-DECLARE @i INT = 1
-
-WHILE @nofTry > @i
-	BEGIN
-
-			declare @a int = 1
-			declare @b int = @dim
-
-			declare @x int, @y int = 1
-
-			SET @x = (SELECT FLOOR(RAND()*(@b-@a+1))+@a)
-			SET @y = (SELECT FLOOR(RAND()*(@b-@a+1))+@a)
-
-				DECLARE @COL NVARCHAR(100) = (
-						SELECT 
-							COLUMN_NAME 
-						FROM INFORMATION_SCHEMA.COLUMNS
-						WHERE
-								TABLE_NAME = 'T_2048'
-							AND TABLE_SCHEMA = 'dbo'
-							AND ORDINAL_POSITION = @x+1 )
+				insert into @zeros
+				SELECT @row AS row_n
+					,@col AS col_n
+					,(SELECT CAST(val as int) FROM #res) AS val
 
 
-			--- CHECK if 0
-			DECLARE @check0 NVARCHAR(1000) = 'SELECT ' +@COL+ ' FROM dbo.T_2048 WHERE ID =' + CAST(@y AS varchar(10))
-			PRINT @check0
+				SET @col = @col + 1
+				DROP TABLE IF EXISTS #res
+			END
+			SET @col = 1
+			SET @row = @row + 1
+		END
 
-			DECLARE @temp TABLE (RES INt)
+					-- All the numbers
+					-- Get position for 0 
+					DECLARE @id INT =  (  SELECT top 1  ID FROM @zeros WHERE val = 0 order by NEWID() )
+					PRINT @id
+			
+					DECLARE @new_col VARCHAR(10) = (SELECT 'V' + cast(col_n as varchar(10)) FROM @zeros WHERE id = @id)
+					DECLARE @new_row INT = (SELECT row_n FROM @zeros WHERE id = @id)
 
-			INSERT INTO @temp
-			EXEC sp_executesql @check0
+					print @new_col
+					print @new_row
 
+					   IF ( SELECT COUNT(*)  ID FROM @zeros WHERE val = 0) > 0
+									BEGIN
+						
+											DECLARE @Sq NVARCHAR(2000) =  
+												'UPDATE dbo.T_2048
+													SET ' + CAST(@new_col AS VARCHAR(100)) + ' =  2
+													WHERE	
+														ID = '+CAST(@new_row AS VARCHAR(100))
 
-			IF (SELECT res FROM @temp) = 0
-				BEGIN
-						SET @i = @nofTry
-						DECLARE @Sq NVARCHAR(2000) =  
-							'UPDATE dbo.T_2048
-								SET ' + CAST(@COL AS VARCHAR(100)) + ' = CASE WHEN ' + CAST(@COL AS VARCHAR(100)) + '  = 0 THEN 2  ELSE ' + CAST(@COL AS VARCHAR(100)) + '  END
-								WHERE	
-									ID = '+CAST(@y AS VARCHAR(100))
+												EXEC sp_executesql @Sq
+					
+									END
+									ELSE
+									BEGIN
+										SELECT 'Game over'
+									END	
 
-							EXEC sp_executesql @Sq
-							--RETURN;
-				END
-		SET @i = @i + 1
-	END
 
 END;
 GO
