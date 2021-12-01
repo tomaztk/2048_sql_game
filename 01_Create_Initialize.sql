@@ -25,6 +25,8 @@ BEGIN
 	DECLARE @i INT = 1
 	DECLARE @j INT = 1
 
+	DROP TABLE IF EXISTS dbo.T_2048;
+
 	DECLARE @TableCreate NVARCHAR(2000) = 
 	'DROP TABLE IF EXISTS dbo.T_2048; 
 	CREATE TABLE dbo.T_2048 (ID INT IDENTITY(1,1), '
@@ -98,6 +100,13 @@ BEGIN
 			SET @col = 1
 			SET @row = @row + 1
 		END
+
+					-- check for 2048
+					IF (SELECT COUNT(*) FROM @zeros WHERE val = 2048) = 1
+					BEGIN
+						SELECT 'You Won'
+						DROP TABLE IF EXISTS dbo.T_2048;
+					END
 
 					-- All the numbers
 					-- Get position for 0 
