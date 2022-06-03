@@ -32,7 +32,7 @@ Run the code:
 EXEC dbo.CREATE_matrix 4
 
 -- Initialize board of size 4 with two random numbers
-EXEC dbo.FIND_ADD_matrix 4;
+EXEC dbo.FIND_ADD_number 4;
 GO 2 
 ```
 
